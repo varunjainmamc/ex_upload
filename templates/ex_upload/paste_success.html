@@ -1,0 +1,23 @@
+<!-- paste_success.html -->
+<h2>Data Processed Successfully</h2>
+<p>Data from the pasted text:</p>
+
+<table border="1">
+  <thead>
+    <tr>
+      {% for column in df.columns %}
+        <th>{{ column }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for index, row in df.iterrows %}
+      <tr>
+        {% for value in row %}
+          <td>{{ value }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+

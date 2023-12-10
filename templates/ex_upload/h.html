@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color:#c7c7b7;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.272);
+        }
+        h1 {
+            color: #333;
+        }
+        .app-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .app-card {
+            flex: 1;
+            width: calc(50% - 20px); /* Set the width to 50% minus 20px for the gap */
+            background-color: #f0f0f0; /* Default background color */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px; /* Add margin to create gaps between cards */
+            height: 200px; /* Set a fixed height for the tiles */
+        }
+        .app-card:nth-child(4n + 1) {
+            background-color: #ffc0cb; /* Pastel color for the first card in each set of 4 */
+        }
+        .app-card:nth-child(4n + 2) {
+            background-color: #a9d9d9; /* Pastel color for the second card in each set of 4 */
+        }
+        .app-card:nth-child(4n + 3) {
+            background-color: #eac8fa; /* Pastel color for the third card in each set of 4 */
+        }
+        .app-card:nth-child(4n + 4) {
+            background-color: #faf4c8; /* Pastel color for the fourth card in each set of 4 */
+        }
+        .app-card h2 {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+        .app-card p {
+            font-size: 16px;
+            color: #666;
+        }
+        .app-link {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+        .app-link:hover {
+            color: #007bff;
+        }
+
+        @media (max-width: 768px) {
+            .app-card {
+                width: 100%; /* Set full width for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>upload data</h1>
+        <div class="app-links">
+            <!-- Replace these links and descriptions with your app details -->
+            <div class="app-card">
+                <a class="app-link" href="/ex_upload/upload" target="_blank"><h2>excel</h2></a>
+                <br>
+                <p>Description of App 1.</p>
+            </div>
+            <div class="app-card">
+                <a class="app-link" href="/ex_upload/paste" target="_blank"><h2>data</h2></a>
+                <br>
+                <p>Description of App 2.</p>
+            </div>
+            <!-- Repeat the above app-card divs for each of your apps -->
+        </div>
+    </div>
+</body>
+</html>

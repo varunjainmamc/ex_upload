@@ -1,0 +1,65 @@
+<br>
+{% if not table_name %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="page_t" value="page_t">
+        <label for="table_name">Table Name:</label>
+        <select name="table_name">
+            {% for name in table_all %}
+                <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+{% else %}
+
+    <p>
+        <strong style="font-weight: bold;">Table Name:</strong>
+        <span style="border: 1px solid #d1cece; padding: 4px;">
+            {{ table_name }}
+        </span>
+    </p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <br>
+        
+        <input type="hidden" name="table_name" value="{{ table_name }}">
+        <input type="hidden" name="page_t" value="">
+
+        <table border="1">
+            <tr>
+                {% for field_n in header %}
+                    <th>
+                        {{field_n}}
+                    </th>
+                {% endfor %}
+            </tr>
+            {% for i in num_row_list %}
+            <tr>
+                {% for field_n, field_v in feedback %}
+                
+                    <td>
+                        <input type="text" name="{{ field_n|add:i }}" value="{{ field_v }}" style="text-align: center;">
+                    </td>
+                
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        
+        <input type="submit" value="Submit">
+        <input type="submit" onclick="window.location='{% url 'input' %}'; return false;" value="Cancel">
+    </form>
+
+    <br>
+{% endif %}
+
+<p><a href="upload">Upload Excel</a></p>
+
+<br>
+<p><a href="{% url 'logout' %}?next={% url 'table_revision:input_data' %}">Logout</a></p>
+

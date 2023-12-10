@@ -1,0 +1,11 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="{{ form.table_name.id_for_label }}">Table Name:</label>
+    {{ form.table_name }}
+    <br>
+    <br>
+    {{ form.excel_file }}
+    
+    <button type="submit">Upload Excel</button>
+</form>
+

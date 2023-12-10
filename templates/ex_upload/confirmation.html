@@ -1,0 +1,30 @@
+<!-- upload_success.html -->
+<h2>Upload Successful</h2>
+<p>Data from the Excel file:</p>
+<table border="1">
+    <thead>
+      <tr>
+        {% for column in df.columns %}
+          <th>{{ column }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for index, row in df.iterrows %}
+        <tr>
+          {% for value in row %}
+            <td>{{ value }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+<br>
+<form method="post" action="{% url 'confirmation' %}">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Confirm Upload</button>
+</form>
+
+<p>If there is an issue, you can go back and make corrections:</p>
+<a href="{% url 'upload_excel' %}">Upload Excel</a>

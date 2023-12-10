@@ -1,0 +1,56 @@
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="table_name" value="{{ table_name }}">
+    <input type="hidden" name="page_t" value="">
+    <br>
+    <table >
+       <tr>
+            {% for name in header %}
+                <td>
+                    <th>
+                        {{name}}
+                    </th>
+                </td>
+            {% endfor %}
+        </tr>
+
+        {% for row_k, row_v in feedback.items %}
+            <tr>
+                {% for field_k, field_v in row_v.items %}
+                    <td>
+                        {% for user_v in field_v %}
+                            {%  if forloop.counter is 1 %}
+                                <td>
+                                    <input type="text" name="{{field_k}}" value="{{user_v}}" style="text-align: center;">
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            </tr>
+
+            <tr>
+                {% for field_k, field_v in row_v.items %}
+                    <td>
+                        {% for correct_v in field_v %}
+                            {%  if forloop.counter is 2 %}
+                                {% if correct_v is 1 %}
+                                    <td style="color: rgb(10, 170, 30); text-align: center;">Correct</td>
+                                {% elif correct_v is None %}
+                                    <td></td>
+                                {% else %}
+                                    <td style="color: red; text-align: center;">{{ correct_v }}</td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            </tr>
+            
+        {% endfor %}
+    </table>
+    <br>
+    <input type="submit" value="Submit">
+    <input type="submit" onclick="window.location='{% url 'input' %}'; return false;" value="Cancel">
+</form>
