@@ -1,0 +1,36 @@
+
+<div class="app-links">
+    <!-- Replace these links and descriptions with your app details -->
+    <div class="app-card">
+        <a class="app-link" href="/sq" target="_blank"><h2>City <br>& <br> Friends</h2></a>
+    </div>
+
+    <div class="app-card">
+        <a class="app-link" href="/ads" target="_blank"><h2>Food<br> &<br> Country</h2></a>
+    </div>
+
+    <div class="app-card">
+        <a class="app-link" href="/exp" target="_blank"><h2>Exp</h2></a>
+        <br>
+        <p>Description of App 3.</p>
+    </div>
+    <div class="app-card">
+        <a class="app-link" href="/Letter_Memory" target="_blank"><h2>Eazy Numbers</h2></a>
+        <p>Description of App 4.</p>
+    </div>
+</div>
+
+
+{% for k, row in data_dict.items %}
+            {% if k == 'data'%}
+                <tr>
+                    {% for list in row %}
+                        {% for value in list %}
+                            <td>
+                                <input type="text" name="{{ value.name }}" value="{{ value }}" placeholder="enter" style="text-align: center;">
+                            </td>
+                        {% endfor %}
+                    {% endfor %}
+                </tr>
+            {% endif %}
+        {% endfor %}

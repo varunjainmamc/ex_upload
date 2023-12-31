@@ -1,7 +1,22 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+
+<br>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <label for="{{ form.table_name.id_for_label }}">Table Name:</label>
+
+    <!-- Use a combination of input and datalist -->
     {{ form.table_name }}
+    
+    <!-- Datalist for options -->
+    <datalist id="table_list">
+        {% for name in table_all %}
+            <option value="{{ name }}">
+        {% endfor %}
+    </datalist>
+
     <br>
     <br>
     {{ form.excel_file }}
@@ -9,3 +24,4 @@
     <button type="submit">Upload Excel</button>
 </form>
 
+{% endblock %}

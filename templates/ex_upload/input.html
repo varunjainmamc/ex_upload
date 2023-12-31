@@ -1,5 +1,10 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+
 <br>
-{% if not table_name %}
+<br>
+{% if not table_name %} <!-- select the table name for input fields -->
     <form action="" method="post">
         {% csrf_token %}
         <input type="hidden" name="page_t" value="page_t">
@@ -13,7 +18,7 @@
         <br>
         <button type="submit">Submit</button>
     </form>
-{% else %}
+{% else %} <!-- input fields -->
 
     <p>
         <strong style="font-weight: bold;">Table Name:</strong>
@@ -40,10 +45,20 @@
             {% for i in num_row_list %}
             <tr>
                 {% for field_n, field_v in feedback %}
-                
-                    <td>
-                        <input type="text" name="{{ field_n|add:i }}" value="{{ field_v }}" style="text-align: center;">
-                    </td>
+                    {% if forloop.counter == 1 %}
+                        <td>
+                            <select name="{{ field_n|add:i }}" style="text-align: center;">
+                                <option value="" selected disabled>Select from dropdown</option>
+                                {% for option in unique_key %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>                        
+                    {% else %}
+                        <td>
+                            <input type="text" name="{{ field_n|add:i }}" value="{{ field_v }}" placeholder="enter" style="text-align: center;">
+                        </td>
+                    {% endif %}
                 
                 {% endfor %}
             </tr>
@@ -52,14 +67,11 @@
         <br>
         
         <input type="submit" value="Submit">
-        <input type="submit" onclick="window.location='{% url 'input' %}'; return false;" value="Cancel">
+        <input type="submit" onclick="window.location='{% url 'ex_upload:input' %}'; return false;" value="Cancel">
     </form>
 
     <br>
 {% endif %}
 
-<p><a href="upload">Upload Excel</a></p>
-
-<br>
-<p><a href="{% url 'logout' %}?next={% url 'table_revision:input_data' %}">Logout</a></p>
+{% endblock %}
 

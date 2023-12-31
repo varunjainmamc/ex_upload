@@ -7,8 +7,11 @@ class PasteDataForm(forms.Form):
 
 class ExcelUploadForm(forms.Form):
     excel_file = forms.FileField()
-    table_name = forms.CharField(max_length=50, required=True)
-
+    table_name = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={'list': 'table_list', 'placeholder': 'New Name or select from dropdown to update existing table', 'size': '53'}),
+    )
 
 
 class ConfirmationForm(forms.Form):

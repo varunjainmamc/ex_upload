@@ -1,0 +1,175 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="landing-banner">
+    <div class="banner-content">        
+        <p style="font-size: 48px;font-weight: bold;">Revise or Retrieve your data <br><i>on the go</i>...</p>
+    </div>
+</section>
+
+<div style="display: flex;">
+
+    <!-- First Image -->
+    <div style="flex: 1; margin-left: 110px;">
+        <img src="{% static 'Lady_Car.jpg' %}" alt="Lady_Car" style="width: auto; height: 300px;">
+    </div>
+
+    <!-- Second Image -->
+    <div style="flex: 1; margin-right: 110px;">
+        <img src="{% static 'man_phone.png' %}" alt="man_phone" style="width: auto; height: 300px;">
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<section class="landing-banner">
+    <div class="banner-content">        
+        <p style="font-size: 40px;font-weight: bold; margin-bottom: 20px">Do you know, 'Chicken Tikka Masala'<br> originated in Scotland!!?</p>
+        <p style="font-size: 30px;font-weight: bold; margin-bottom: 15px">Check it out below for other dishes too...</p>
+        <a id="{{ initial_anchor }}"></a>
+        <p style="font-size: 18px;font-weight: normal; margin-bottom: 5px"> <i> Enter as many dish details as you want and hit submit.</i></p>
+    </div>
+</section>
+
+{% if frm == 'frm1' %}
+    <form action="" method="post" >
+        {% csrf_token %}
+        
+        
+        <input type="hidden" name="table_name" value="demo">
+        <input type="hidden" name="user" value="varunjainmamc">
+        <input type="hidden" name="page_t" value="">
+
+        <table border="1" >
+            <tr>
+                {% for field_n in header %}
+                    <th>
+                        {{field_n}}
+                    </th>
+                {% endfor %}
+            </tr>
+            {% for i in '12345678' %}
+            <tr>
+                {% for field_n, field_v in feedback %}
+                    {% if forloop.counter == 1 %}
+                        <td>
+                            <select name="{{ field_n|add:i }}" style="text-align: center;">
+                                <option value="" selected disabled>Select from dropdown</option>
+                                {% for option in unique_key %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    {% elif forloop.counter == 3 %}  
+                        <td>
+                            <select name="{{ field_n|add:i }}" style="text-align: center;">
+                                <option value="" selected >Select from dropdown</option>
+                                {% for option in unique_key3 %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>                
+                    {% else %}
+                        <td>
+                            <input type="text" name="{{ field_n|add:i }}" value="{{ field_v }}" placeholder="enter" style="text-align: center;">
+                        </td>
+                    {% endif %}
+                
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        
+        <input type="submit" value="Submit">
+        <input type="submit" onclick="window.location='{% url 'ex_upload:input' %}'; return false;" value="Cancel">
+    </form>
+{% else %}
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="table_name" value="demo">
+        <input type="hidden" name="user" value="varunjainmamc">
+        <input type="hidden" name="page_t" value="">
+
+        <br>
+        <table >
+        <tr>
+                {% for name in header %}
+                    <td>
+                        <th>
+                            {{name}}
+                        </th>
+                    </td>
+                {% endfor %}
+            </tr>
+
+            {% for row_k, row_v in feedback.items %}
+                <tr>
+                    {% for field_k, field_v in row_v.items %}
+                        <td>
+                            {% for user_v in field_v %}
+                                {%  if forloop.counter is 1 %}
+                                    <td>
+                                        <input type="text" name="{{field_k}}" value="{{user_v}}" style="text-align: center;">
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    {% for field_k, field_v in row_v.items %}
+                        <td>
+                            {% for correct_v in field_v %}
+                                {%  if forloop.counter is 2 %}
+                                    {% if correct_v is 1 %}
+                                        <td style="color: rgb(10, 170, 30); text-align: center;">Correct</td>
+                                    {% elif correct_v is None %}
+                                        <td></td>
+                                    {% else %}
+                                        <td style="color: red; text-align: center;">{{ correct_v }}</td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                
+            {% endfor %}
+        </table>
+        <br>
+        <input type="submit" value="Submit">
+        <input type="submit" onclick="window.location='{% url 'ex_upload:input' %}'; return false;" value="Cancel">
+    </form>
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<section class="landing-banner">
+    <div class="banner-content">        
+        <p style="font-size: 20px;font-weight: bold;">Above table can be used seamlessly for revision or retrieval of data. <br><br><br> Interesting!!?</p>
+        <br>
+        
+        
+        <p style="font-size: 30px;font-weight: bold;">  Real magic will be, if you can upload any data &<br> R-TAB puts it right at your fingertips <br>wherever you go...</p>
+        <br>
+        <br>
+        <a href="{% url 'ex_upload:upload' %}" style="display: inline-block; padding: 10px 20px; background-color: black; color: white; text-decoration: none;">Upload via Excel</a>
+    </div>
+</section>
+<br>
+<br>
+<br>
+{% endblock %}

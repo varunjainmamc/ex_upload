@@ -1,0 +1,18 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+
+<br>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="table_name">Table Name:</label>
+    <select id="table_name" name="table_name">
+        {% for name in table_all %}
+            <option value="{{ name }}">{{ name }}</option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit">Delete</button>
+</form>
+
+{% endblock %}
